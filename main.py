@@ -58,7 +58,7 @@ def get_weather(region):
             location_id = 101021700
         if(region == "长宁区"):
             location_id = 101021300
-        if(region == "北京")
+        if(region == "北京"):
             location_id = 101010100
         if(region == "朝阳区"):
             location_id = 101010300
@@ -153,12 +153,12 @@ def send_message(to_user, access_token, region_1, weather_1, temp_1, TempNew_1, 
     today = datetime.date(datetime(year=year, month=month, day=day))
     week = week_list[today.isoweekday() % 7]
     # 获取在一起的日子的日期格式
-    love_year = int(config["love_date"].split("-")[0])
-    love_month = int(config["love_date"].split("-")[1])
-    LoveDay = int(config["love_date"].split("-")[2])
-    love_date = date(love_year, love_month, LoveDay)
+    love_year = int(config["wdedding_date"].split("-")[0])
+    love_month = int(config["wdedding_date"].split("-")[1])
+    wedding = int(config["wdedding_date"].split("-")[2])
+    wdedding_date = date(love_year, love_month, wedding)
     # 获取在一起的日期差
-    LoveDays = str(int(str(today.__sub__(love_date)).split(" ")[0]))
+    weddings = str(wdedding_date.__sub__(today)).split(" ")[0]
     # 获取所有生日数据
     birthdays = {}
     for k, v in config.items():
@@ -167,7 +167,7 @@ def send_message(to_user, access_token, region_1, weather_1, temp_1, TempNew_1, 
     data = {
         "touser": to_user,
         "template_id": config["template_id"],
-        "url": "",
+        "url": "https://news.sina.com.cn/hotnews/",
         "topcolor": "#FF0000",
         "data": {
             "NowDate": {
@@ -197,8 +197,9 @@ def send_message(to_user, access_token, region_1, weather_1, temp_1, TempNew_1, 
             "WindDir_2": {
                 "value": WindDir_2,
             },
-            "LoveDay": {
-                "value": LoveDays,
+            "wedding": {
+                "value": weddings,
+                "color": get_color()
             },
             "NoteEN_0": {
                 "value": NoteEN_0,
@@ -238,7 +239,7 @@ def send_message(to_user, access_token, region_1, weather_1, temp_1, TempNew_1, 
     headers = {
         'Content-Type': 'application/json',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
-                      'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
+                      'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0'
     }
     response = post(url, headers=headers, json=data).json()
     if response["errcode"] == 40037:
